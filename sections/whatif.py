@@ -33,10 +33,12 @@ def render(ctx: dict) -> None:
         recorded = (s.loc[y1, "count"] / s.loc[y0, "count"] - 1) * 100
         reporting = st.slider(
             f"Assumed change in the share of victims who report, {y0} → {y1} (%)",
-            min_value=-50, max_value=200, value=min(100, max(0, int(round(recorded / 2)))), step=5,
+            min_value=-50, max_value=200, value=min(100, max(0, 5 * round(recorded / 10))), step=5,
             help="Example: +50% means the reporting rate went from 12% to 18%.",
         )
         implied = ((1 + recorded / 100) / (1 + reporting / 100) - 1) * 100
+        if abs(implied) < 0.5:
+            implied = 0.0  # display "+0%" rather than "-0%"
         st.metric(f"Recorded change ({ind})", f"{recorded:+.0f}%")
         st.metric("Implied change in actual victimisation", f"{implied:+.0f}%",
                   help="Under your reporting assumption, with everything else constant.")
