@@ -1,0 +1,7 @@
+# Pinned for reproducibility (tested with Python 3.12 and 3.13)
+streamlit==1.66.1
+pandas==3.0.5
+numpy==2.5.3
+plotly==7.1.0
+pyarrow==26.0.0
+requests==2.34.2
